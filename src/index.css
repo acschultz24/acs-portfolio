@@ -1,0 +1,1083 @@
+/* Import Fonts */
+@import url('https://fonts.cdnfonts.com/css/general-sans');
+
+/* Tailwind Base, Components, and Utilities */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Global Styles */
+* {
+  scroll-behavior: smooth;
+}
+
+html, body, #root {
+  height: 100%; /* Ensure the root container takes up the full viewport height */
+  display: flex; /* Use flexbox for layout */
+  flex-direction: column; /* Stack elements vertically */
+}
+
+html {
+  transition: background-color 2s ease, color 2s ease, margin 2s ease; /* Apply smooth transition to background, color, and margin */
+  background-color: var(--background-color); /* Ensure background color transitions */
+  color: var(--text-color); /* Ensure text color transitions */
+}
+
+/* Default (Dark Mode) */
+:root {
+  --margin-base: 0.5rem;
+  --margin-small: 1rem;
+  --margin-medium: 2rem;
+  --margin-large: 4rem;
+  --margin-xlarge: 8rem;
+  --background-color: #101013;
+  --text-color: #ffffff;
+  --border-color: #2c2c2e;
+  --box-background-color: rgba(0, 0, 0, 0.300); /* Default box background color for dark mode */
+  --button-background-color: #2c2c2e; /* Default button background color for dark mode */
+  --box-shadow: 0 -1px 3px 2px rgba(0, 0, 0, 0.1); /* Default box shadow for dark mode */
+  --box-glow: 0 0 5px rgba(211, 211, 211, 0.1); /* Smaller and lower-opacity light gray glow */
+  --about-box-glow: 0 0 5px rgba(144, 238, 144, 0.1); /* Smaller and lower-opacity green glow for About section */
+}
+
+/* Light Mode */
+.light {
+  --background-color: #f3f3f3;
+  --text-color: #000000;
+  --border-color: #080808;
+  --box-background-color: rgba(255, 255, 255, 0.205); /* Light mode box background color */
+  --button-background-color: #0000004f; /* Light mode button background color */
+  --box-shadow: none; /* Remove box shadow in light mode */
+  --box-glow: none; /* Remove glow in light mode */
+  --about-box-glow: none; /* Remove glow in light mode */
+}
+
+#root {
+  padding-left: var(--margin-base);
+  padding-right: var(--margin-base);
+}
+
+
+body {
+  background-color: var(--background-color);
+  color: var(--text-color);
+  font-family: 'General Sans', sans-serif;
+  transition: background-color 2s ease, color 2s ease;
+}
+
+main {
+  @apply flex-1;
+  flex: 1; /* Ensures the main content takes up available space */
+  display: flex;
+  flex-direction: column; /* Ensures proper stacking of sections */
+}
+
+footer {
+  margin-top: auto; /* Push footer to the bottom */
+  background-color: #101013; /* Match the background color of the page */
+  color: #fff; /* Footer text color */
+  text-align: center;
+  padding: 1rem 0;
+  position: relative; /* Ensure it stays in the normal flow */
+  z-index: 1; /* Prevent overlapping */
+  border-top: 1px solid #2c2c2e; /* Add a thin separation line */
+}
+
+/* Ensure BentoBox has sufficient spacing */
+.bentobox {
+  margin-bottom: 0 !important; /* Remove bottom margin */
+  padding: 0 1rem; /* Add left and right padding */
+  @apply sm:px-5 md:px-8 lg:px-12 xl:px-12; /* Ensure consistent padding across screen sizes */
+  height: auto !important; /* Ensure height is determined by content */
+}
+
+.bentobox {
+
+  height: auto !important; /* Ensure height is determined by content */
+}
+
+.bentobox .grid > * {
+  height: 20vh; /* Ensure each row takes up 20% of the viewport height */
+  display: flex; /* Ensure the grid items behave as flex containers */
+  align-items: stretch; /* Stretch child elements to fill the row height */
+  margin: 0; /* Remove any unintended margins */
+  padding: 0; /* Remove any unintended padding */
+  box-sizing: border-box; /* Include padding and border in height calculation */
+  box-shadow: var(--box-shadow), var(--box-glow); /* Apply shadow and updated light gray glow dynamically */
+}
+
+.grid-container {
+  @apply w-full h-full border border-black-300 bg-black-200 rounded-3xl flex flex-col gap-2.5;
+  height: 100%; /* Ensure the grid container fills its parent row */
+  margin: 0; /* Remove any extra margin */
+  padding: 0; /* Remove any extra padding */
+  display: flex; /* Ensure content inside is flex-aligned */
+  flex-direction: column; /* Stack content vertically */
+  justify-content: flex-end; /* Align content to the bottom */
+  align-items: center; /* Center content horizontally */
+  overflow: hidden; /* Prevent content from overflowing */
+  box-sizing: border-box; /* Include border and padding in height calculation */
+  background-color: var(--box-background-color); /* Use dynamic box background color */
+  box-shadow: var(--box-shadow), var(--box-glow); /* Apply shadow and updated light gray glow dynamically */
+}
+
+/* Reset any unintended margin or padding on grid items */
+.grid-container > * {
+  margin: 0 !important; /* Remove any extra margin */
+  padding: 0 !important; /* Remove any extra padding */
+  flex-shrink: 0; /* Prevent content from shrinking the container */
+  line-height: 1.2; /* Explicitly set line-height to avoid extra spacing */
+  font-size: inherit; /* Ensure font size does not add unintended height */
+}
+
+/* Ensure grid gaps are consistent */
+.bentobox .grid {
+  gap: 1rem; /* Set consistent vertical and horizontal gaps */
+}
+
+/* Utility Classes */
+@layer utilities {
+  .c-space {
+    @apply sm:px-5 px-2.5;
+  }
+
+  .head-text {
+    @apply sm:text-4xl text-3xl font-semibold text-gray_gradient;
+  }
+
+  .nav-ul {
+    @apply flex flex-col items-center gap-2 sm:flex-row md:gap-3 relative z-20;
+  }
+
+  .nav-li {
+    @apply text-neutral-400 hover:text-white font-generalsans max-sm:hover:bg-black-500 max-sm:w-full max-sm:rounded-md py-1 max-sm:px-2.5;
+  }
+
+  .nav-li_a {
+    @apply text-xl md:text-lg hover:text-white transition-colors whitespace-nowrap;
+    text-decoration: none;
+    color: rgb(180, 180, 180);
+    padding: 5px;
+    transition: all 0.7s ease-in-out;
+    font-size: 1.5rem;
+    margin-right: 10px;
+  }
+
+  .nav-li_a.active {
+    font-weight: 600;
+    color: rgb(218, 218, 218);
+  }
+
+  .nav-sidebar {
+    @apply absolute left-0 right-0 bg-black-200 bg-opacity-50 backdrop-blur-sm transition-all duration-300 ease-in-out overflow-hidden z-20 mx-auto sm:hidden block;
+    background-color: rgba(0, 0, 0, 0.5);
+  }
+
+  .text-gray_gradient {
+    @apply bg-gradient-to-r from-[#BEC1CF] from-60% via-[#D5D8EA] via-60% to-[#D5D8EA] to-100% bg-clip-text text-transparent;
+  }
+
+  .btn {
+    @apply flex gap-2 items-center justify-center cursor-pointer p-1.5 rounded-md bg-black-300 transition-all active:scale-95 text-white mx-auto;
+  }
+
+  .btn-ping {
+    @apply animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75;
+  }
+
+  .btn-ping_dot {
+    @apply relative inline-flex rounded-full h-1.5 w-1.5 bg-green-500;
+  }
+
+  .hero_tag {
+    @apply text-center lg:text-5xl md:text-4xl sm:text-3xl text-2xl font-generalsans font-black !leading-normal;
+    white-space: nowrap;
+    padding: 0 2.5%;
+  }
+
+  .grid-headtext {
+    @apply text-xl font-semibold mb-1 text-white font-generalsans;
+  }
+
+  .grid-subtext {
+    @apply text-[#afb0b6] text-base font-generalsans;
+  }
+
+  .copy-container {
+    @apply cursor-pointer flex justify-center items-center gap-1;
+    margin-bottom: 0.5rem;
+  }
+
+  .button-container {
+    margin-top: 0.5rem;
+    background-color: var(--button-background-color); /* Use dynamic button background color */
+  }
+
+  .arrow-btn {
+    @apply flex items-center justify-center cursor-pointer rounded-full transition-all active:scale-95 mx-auto;
+    width: 50px;
+    height: 50px;
+    padding: 0;
+    border-radius: 50%;
+    border: 1px solid rgba(169, 169, 169, 0.7);
+    color: rgba(211, 211, 211, 0.7);
+    background-color: var(--button-background-color); /* Use dynamic button background color */
+  }
+
+  .arrow-icon {
+    width: 24px;
+    height: 24px;
+    color: rgba(245, 245, 245, 0.9);
+  }
+
+  .arrow-btn:hover {
+    border-color: rgb(223, 223, 223) !important;
+    color: rgb(218, 218, 218) !important;
+  }
+
+  .arrow-btn:hover .arrow-icon {
+    color: white !important;
+  }
+
+  .tech-logo {
+    @apply w-5 h-5 rounded-md p-1 bg-neutral-100 bg-opacity-10 backdrop-filter backdrop-blur-lg flex justify-center items-center;
+  }
+
+  .contact-container {
+    @apply max-w-xl relative z-10 sm:px-5 px-2.5 mt-6;
+  }
+
+  .field-label {
+    @apply text-lg text-white-600;
+  }
+
+  .field-input {
+    @apply w-full bg-black-300 px-2.5 py-1 min-h-7 rounded-lg placeholder:text-white-500 text-lg text-white-800 shadow-black-200 shadow-2xl focus:outline-none;
+  }
+
+  .field-btn {
+    @apply bg-black-500 px-2.5 py-1 min-h-6 rounded-lg shadow-black-200 shadow-2xl flex justify-center items-center text-lg text-white gap-1.5;
+  }
+
+  .field-btn_arrow {
+    @apply w-1.25 h-1.25 object-contain invert brightness-0;
+  }
+
+  .social-icon {
+    @apply w-6 h-6 rounded-full flex justify-center items-center bg-black-300 border border-black-200;
+  }
+
+  .nav-title {
+    @apply text-4xl md:text-3xl font-semibold text-neutral-400 hover:text-white transition-colors tracking-wider whitespace-nowrap;
+    margin-right: 10px;
+  }
+
+  .nav-title.active, .nav-li_a.active {
+    font-weight: 600;
+    color: rgb(218, 218, 218);
+  }
+}
+
+.waving-hand {
+  animation-name: wave-animation;
+  animation-duration: 2.5s;
+  animation-iteration-count: infinite;
+  transform-origin: 70% 70%;
+  display: inline-block;
+}
+
+.arrow-gradient {
+  background-image: linear-gradient(
+    to right,
+    rgba(255, 255, 255, 0.1) 10%,
+    rgba(255, 255, 255, 0.000025) 50%,
+    rgba(255, 255, 255, 0.000025) 50%,
+    rgba(255, 255, 255, 0.025) 100%
+  );
+}
+
+@keyframes wave-animation {
+  0% {
+    transform: rotate(0deg);
+  }
+  15% {
+    transform: rotate(14deg);
+  }
+  30% {
+    transform: rotate(-8deg);
+  }
+  40% {
+    transform: rotate(14deg);
+  }
+  50% {
+    transform: rotate(-4deg);
+  }
+  60% {
+    transform: rotate(10deg);
+  }
+  70% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(0deg);
+  }
+}
+
+.navbar {
+  @apply fixed top-0 left-0 right-0 transition-all ease-in-out flex items-center justify-between px-2;
+  box-shadow: 0 4px 11px rgba(0, 0, 0, 0.6);
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.4));
+}
+
+.navbar.scrolled {
+  height: 60px;
+}
+
+.navbar.top {
+  height: 100px;
+}
+
+.nav-left {
+  @apply lg:mr-8;
+}
+
+.nav-right {
+  @apply ml-2.5;
+}
+
+#products {
+  @apply flex flex-col items-center justify-center w-full space-y-8; /* Added vertical spacing */
+}
+
+#products .product-card {
+  @apply bg-black-200 shadow-lg overflow-hidden relative w-full rounded-[2rem] border border-black-300; /* Adjusted border to match BentoBox */
+  box-shadow: var(--box-shadow), var(--box-glow); /* Apply shadow and updated light gray glow dynamically */
+}
+
+#products .product-card img {
+  @apply absolute inset-0 w-full h-full object-cover opacity-50;
+}
+
+#products .product-card h3 {
+  @apply text-2xl font-bold text-white;
+}
+
+#products .product-card p {
+  @apply text-white-500 mt-2;
+}
+
+/* Subtle readability fade used across image cards */
+.soft-bottom-fade::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 52%;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.35) 0%, rgba(0, 0, 0, 0.12) 45%, rgba(0, 0, 0, 0) 100%);
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Specific styles for the Jewelry section grid */
+.jewelry-grid {
+  display: grid;
+  grid-template-columns: 1fr; /* 1 column below 768px */
+  gap: 1.5rem; /* Default gap matching Products section */
+}
+
+.jewelry-grid > div {
+  box-shadow: var(--box-shadow), var(--box-glow); /* Apply shadow and updated light gray glow dynamically */
+}
+
+@media (min-width: 768px) {
+  .jewelry-grid {
+    grid-template-columns: repeat(2, 1fr); /* 2 columns at md and above */
+  }
+}
+
+@media (min-width: 1088px) {
+  .jewelry-grid {
+    gap: 2rem; /* lg gap matching Products */
+  }
+}
+
+@media (min-width: 1366px) {
+  .jewelry-grid {
+    gap: 2.5rem; /* xl gap matching Products */
+  }
+}
+
+/* Dark-mode overrides for Contact page text colors on grey background */
+.contact-page .contact-card p,
+.contact-page .contact-card h1,
+.contact-page .contact-card label,
+.contact-page .contact-card a {
+  color: #ffffff !important;
+}
+
+.contact-page .contact-card .field-input {
+  color: #ffffff !important;
+  background-color: rgba(80, 80, 90, 0.8) !important;
+}
+
+.contact-page .contact-card .field-input::placeholder {
+  color: rgba(255, 255, 255, 0.6) !important;
+}
+
+/* Light-mode overrides scoped to the Contact page */
+.light .contact-page .contact-bg-image {
+  filter: grayscale(1) saturate(0.3) brightness(0.92) !important;
+  opacity: 0.62;
+}
+
+.light .contact-page .contact-bg-overlay {
+  background-color: rgba(255, 255, 255, 0.02) !important;
+}
+
+.light .contact-page .contact-card {
+  background-color: rgb(255, 255, 255) !important;
+  color: #000000;
+  border-color: rgba(0, 0, 0, 0.35) !important;
+}
+
+.light .contact-page .contact-card p,
+.light .contact-page .contact-card h1,
+.light .contact-page .contact-card label,
+.light .contact-page .contact-card a {
+  color: #000000 !important;
+}
+
+.light .contact-page .contact-card .field-input {
+  background-color: rgba(255, 255, 255, 0.98) !important;
+  color: #000000 !important;
+  border: 1px solid rgba(0, 0, 0, 0.3);
+  box-shadow: none;
+}
+
+.light .contact-page .contact-card .field-input::placeholder {
+  color: rgba(0, 0, 0, 0.55) !important;
+}
+
+.light .contact-page .contact-card .field-btn {
+  background-color: rgba(230, 230, 230, 0.95) !important;
+  color: #000000 !important;
+  border: 1px solid rgba(0, 0, 0, 0.35);
+  box-shadow: none;
+}
+
+/* Media Queries */
+
+/* Small Screens */
+@media (max-width: 640px) {
+
+  #root {
+    padding-left: var(--margin-base);
+    padding-right: var(--margin-base);
+    background-color: var(--background-color);
+    transition: background-color 2s ease;
+
+  }
+  #home .c-space {
+    margin-top: 150px;
+    padding: 0 2.5%;
+  }
+
+  .hero_tag {
+    font-size: 2rem;
+  }
+
+  .waving-hand {
+    font-size: 1.75rem;
+  }
+
+  .arrow-btn {
+    width: 60px;
+    height: 60px;
+  }
+
+  .arrow-icon {
+    width: 24px;
+    height: 24px;
+  }
+
+  .hero-container {
+    margin-top: 25px;
+  }
+
+  .hero-container p:first-child {
+    font-size: 1.6rem;
+  }
+
+  .hero-titles p:first-child {
+    font-size: 4.5rem !important;
+    -webkit-text-stroke: 1px white;
+    text-stroke: 1px white;
+  }
+
+  .hero-titles p:last-child {
+    font-size: 1.5rem !important;
+  }
+
+  .grid-headtext {
+    font-size: 1rem !important; /* Smaller font size for all screens */
+  }
+
+  .grid-subtext {
+    font-size: 1rem !important; /* Increased font size for small screens */
+  }
+
+  .grid-container {
+    @apply w-full h-full border border-black-300 bg-black-200 rounded-3xl p-2 flex flex-col gap-1.5;
+    height: calc(100% - 40px); /* Match large screen height */
+  }
+
+  .grid-subtext-container {
+    max-height: 0;
+    overflow-y: auto;
+    transition: max-height 1.5s ease;
+  }
+
+  .grid-container:hover .grid-subtext-container {
+    max-height: 150px;
+  }
+
+  .grid-container {
+    position: relative; /* Ensure proper positioning for child elements */
+    overflow: hidden; /* Hide overflowing content */
+  }
+
+  .grid-container .text-center {
+    max-height: 2.5rem; /* Show only the title by default */
+    overflow: hidden; /* Hide the subtext */
+    transition: max-height 0.3s ease; /* Smooth transition for hover effect */
+  }
+
+  .grid-container:hover .text-center {
+    max-height: 10rem; /* Expand to show the full content on hover */
+    overflow-y: auto; /* Enable vertical scrolling if content exceeds height */
+  }
+
+  .grid-container {
+    position: relative; /* Ensure proper positioning for child elements */
+    overflow: hidden; /* Hide overflowing content */
+  }
+
+  .grid-container .text-center {
+    max-height: none; /* Allow full height for the container */
+  }
+
+  .grid-container .grid-headtext {
+    max-height: none; /* Ensure the title is always fully visible */
+    overflow: visible; /* Prevent the title from being cut off */
+  }
+
+  .grid-container .grid-subtext {
+    max-height: 0; /* Hide the subtext by default */
+    overflow: hidden; /* Prevent the subtext from being visible */
+    transition: max-height 0.3s ease; /* Smooth transition for hover effect */
+  }
+
+  .grid-container:hover .grid-subtext {
+    max-height: 10rem; /* Expand to show the full subtext on hover */
+    overflow-y: auto; /* Enable vertical scrolling if content exceeds height */
+  }
+
+  .grid-container.contact-box .grid-subtext {
+    max-height: none; /* Ensure the subtext is always fully visible */
+    overflow: visible; /* Prevent the subtext from being hidden */
+  }
+
+  .grid-headtext {
+    font-size: 0.6rem !important; /* Reduced title font size */
+  }
+
+  .grid-subtext {
+    font-size: 0.5rem !important; /* Reduced subtext font size */
+  }
+
+  .bentobox .grid {
+    @apply grid-cols-6 gap-4; /* 6 columns with consistent spacing */
+  }
+  .bentobox .grid > * {
+    @apply col-span-3; /* Each box spans 3 columns (2 boxes per row) */
+  }
+
+  .bentobox .grid {
+    @apply grid-cols-6 gap-4; /* 6 columns with consistent spacing */
+  }
+  .bentobox .grid > * {
+    @apply col-span-3; /* Each box spans 3 columns (2 boxes per row) */
+    height: 20vh; /* Ensure each row takes up 20% of the viewport height */
+    display: flex; /* Use flexbox for alignment */
+    align-items: stretch; /* Stretch child elements to fill the height */
+    margin: 0; /* Remove any extra margins */
+    padding: 0; /* Remove any extra padding */
+    box-sizing: border-box; /* Include padding and border in height calculation */
+  }
+
+  .bentobox .grid-container {
+    height: 100%; /* Ensure the container fills its parent grid box */
+    display: flex; /* Use flexbox for layout */
+    flex-direction: column; /* Stack content vertically */
+    justify-content: flex-end; /* Align content to the bottom */
+    align-items: center; /* Center content horizontally */
+    margin: 0; /* Remove any extra margins */
+    padding: 1rem; /* Add consistent padding */
+    box-sizing: border-box; /* Include padding and border in height calculation */
+  }
+
+  .bentobox .grid-container > * {
+    flex-grow: 1; /* Ensure child elements grow to fill the container */
+    margin: 0; /* Remove any extra margins */
+    padding: 0; /* Remove any extra padding */
+    line-height: normal; /* Reset line-height to avoid extra space */
+  }
+
+  .bentobox .grid-container .text-center {
+    margin-top: auto; /* Push text to the bottom */
+  }
+
+  .bentobox .grid-container .text-center {
+    margin-top: auto; /* Push text to the bottom */
+    display: flex; /* Use flexbox for alignment */
+    flex-direction: column; /* Stack text vertically */
+    justify-content: flex-end; /* Align text to the bottom */
+    align-items: center; /* Center text horizontally */
+    height: 100%; /* Ensure the text container fills the height */
+  }
+
+  .bentobox .grid-container .grid-headtext {
+    font-size: 0.8rem !important; /* Reduced title font size */
+  }
+
+  .bentobox .grid-container .grid-subtext {
+    font-size: 0.7rem !important; /* Reduced subtext font size */
+    line-height: 1.2 !important; /* Adjusted line height for better spacing */
+  }
+
+  .bentobox .grid-headtext {
+    font-size: 0.5rem !important; /* Smaller title font size */
+    line-height: 1.1 !important; /* Adjusted line height */
+  }
+
+  .bentobox .grid-subtext {
+    font-size: 0.4rem !important; /* Smaller subtext font size */
+    line-height: 1.1 !important; /* Adjusted line height */
+  }
+
+  .contact-box .grid-subtext {
+    font-size: 0.35rem !important; /* Smaller email text size */
+    line-height: 1.1 !important;
+  }
+
+  .contact-box .copy-icon {
+    width: 1.5rem !important; /* Smaller copy.svg icon size */
+    height: 1.5rem !important;
+  }
+
+  .contact-box .grid-subtext {
+    font-size: 0.3rem !important; /* Further reduced email text size */
+    line-height: 1 !important; /* Adjusted line height */
+  }
+
+  .contact-box .copy-icon {
+    width: 1.25rem !important; /* Further reduced copy.svg icon size */
+    height: 1.25rem !important;
+  }
+}
+
+/* Medium Screens */
+@media (min-width: 641px) and (max-width: 1087px) {
+  #root {
+    padding-left: calc(var(--margin-small) + (var(--margin-medium) - var(--margin-small)) * ((100vw - 641px) / (1087 - 641)));
+    padding-right: calc(var(--margin-small) + (var(--margin-medium) - var(--margin-small)) * ((100vw - 641px) / (1087 - 641)));
+  }
+  .hero-container {
+    margin-top: 0px;
+  }
+  .nav-li_a {
+    font-size: 1rem;
+  }
+  .hero-titles p:first-child {
+    font-size: calc(3.25rem + (3.75rem * ((100vw - 641px) / (1087 - 641))));
+  }
+  .hero-titles p:last-child {
+    font-size: calc(1.25rem + (0.95rem * ((100vw - 641px) / (1087 - 641))));
+  }
+
+  .bentobox {
+    height: auto !important; /* Remove any viewheight (vh) requirement */
+  }
+  .grid-headtext {
+    font-size: 1.35rem !important; /* Smaller font size for all screens */
+  }
+
+  .grid-container .grid-subtext, .grid-container .copy-container p {
+    font-size: 0.89rem !important; /* Fixed subtext size for medium screens */
+  }
+
+  .grid-container .grid-subtext-container {
+    max-height: 0;
+    overflow-y: auto;
+    transition: max-height 1.5s ease; /* Updated transition duration */
+  }
+
+  .grid-container:hover .grid-subtext-container {
+    max-height: 100px;
+  }
+
+  .grid-container {
+    @apply w-full h-full border border-black-300 bg-black-200 rounded-3xl p-3 flex flex-col gap-2;
+    height: auto; /* Allow height to be determined by content */
+    margin: 0; /* Ensure no extra margin */
+  }
+
+  .bentobox .grid {
+    row-gap: 0.5rem; /* Further reduced vertical spacing between rows */
+    @apply grid-cols-6 gap-4; /* Ensure consistent column spacing */
+  }
+
+  /* Exception: Don't override About section grid */
+  #about .grid {
+    @apply grid-cols-1 gap-4 place-items-center p-0; /* Keep About section in single column layout and center items */
+    margin-left: auto !important;
+    margin-right: auto !important;
+    width: fit-content !important;
+    max-width: 90%;
+  }
+
+  /* Keep only the bubbles grid full-width like smaller screens */
+  #about > div:last-child.grid {
+    width: 100% !important;
+    max-width: none !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    place-items: stretch !important;
+  }
+
+  #about .grid > div:last-child {
+    text-align: center !important; /* Force center text alignment */
+  }
+
+  #about .grid > div:last-child p {
+    text-align: center !important; /* Force center text alignment for paragraphs */
+  }
+
+  /* Education boxes in About section */
+  #about > div:last-child > div {
+    width: 100% !important; /* Make education boxes full width */
+  }
+
+  /* Responsive spacing between hero and about sections */
+  #about {
+    margin-top: clamp(1rem, 8vw, 8rem) !important;
+  }
+
+  .bentobox .grid {
+    @apply grid-cols-6 gap-4; /* Use 6 columns with consistent spacing */
+  }
+
+  .bentobox .grid > * {
+    @apply col-span-3; /* Each box spans 3 columns (2 boxes per row) */
+    height: 20vh; /* Ensure each row takes up 20% of the viewport height */
+  }
+
+  .grid-container {
+    height: 100%; /* Ensure the grid container fills its parent row */
+  }
+
+  .grid-headtext {
+    font-size: 1.1rem !important; /* Slightly reduced title font size */
+  }
+
+  .grid-subtext {
+    font-size: 0.85rem !important; /* Slightly reduced subtext font size */
+  }
+}
+
+@media (min-width: 641px) {
+  .copy-container {
+    flex-direction: row !important; /* Align icon and email horizontally */
+  }
+
+  .copy-container img {
+    margin-right: 0.5rem !important; /* Add spacing between icon and email */
+    margin-bottom: 0 !important; /* Remove bottom margin */
+  }
+}
+
+/* Large Screens */
+@media (min-width: 1088px) and (max-width: 1365px) {
+  #root {
+    padding-left: calc(var(--margin-medium) + (var(--margin-large) - var(--margin-medium)) * ((100vw - 1088px) / (1365 - 1088)));
+    padding-right: calc(var(--margin-medium) + (var(--margin-large) - var(--margin-medium)) * ((100vw - 1088px) / (1365 - 1088)));
+  }
+  .hero-container {
+    margin-top: 0px;
+  }
+  .hero-titles p:first-child {
+    font-size: calc(7rem + (10rem - 7rem) * ((100vw - 1088px) / (1365 - 1088)));
+  }
+  .hero-titles p:last-child {
+    font-size: 1.95rem;
+  }
+
+  .grid-headtext {
+    font-size: 1.55rem !important; /* Larger title font size on large screens */
+  }
+
+  .grid-subtext {
+    font-size: 1.1rem !important; /* Larger subtext font size on large screens */
+  }
+
+  .grid-container {
+    @apply w-full h-full border border-black-300 bg-black-200 rounded-3xl p-5 flex flex-col gap-4;
+    height: 100%; /* Ensure the grid container fills its parent row */
+  }
+
+  .bentobox .grid {
+    row-gap: 1rem; /* Match vertical gaps to medium screens */
+    gap: 1rem; /* Ensure consistent spacing between rows and columns */
+    @apply grid-cols-12; /* Maintain 12 columns for large screens */
+  }
+
+  .bentobox .grid > * {
+    height: 26vh; /* Each row takes up 26% of the viewport height */
+  }
+
+  .contact-box .grid-subtext {
+    font-size: 0.95rem !important; /* Larger email text size for large screens */
+    line-height: 1.2 !important; /* Adjusted line height */
+    white-space: nowrap; /* Prevent text wrapping */
+    overflow: hidden; /* Hide overflow */
+    text-overflow: ellipsis; /* Add ellipsis for overflowed text */
+  }
+}
+
+/* Extra Large Screens */
+@media (min-width: 1366px) and (max-width: 1920px) {
+  #root {
+    padding-left: calc(var(--margin-large) + (var(--margin-xlarge) - var(--margin-large)) * ((100vw - 1366px) / (1920 - 1366)));
+    padding-right: calc(var(--margin-large) + (var(--margin-xlarge) - var(--margin-large)) * ((100vw - 1366px) / (1920 - 1366)));
+  }
+  .hero-container {
+    margin-top: 0px;
+  }
+  .hero-titles p:first-child {
+    font-size: calc(8.5rem + (10rem - 8.5rem) * ((100vw - 1366px) / (1920 - 1366)));
+  }
+  .hero-titles p:last-child {
+    font-size: 1.95rem;
+  }
+
+  .grid-headtext {
+    font-size: 1.5rem !important; /* Larger title font size on extra-large screens */
+  }
+
+  .grid-subtext {
+    font-size: 1.05rem !important; /* Larger subtext font size on extra-large screens */
+  }
+
+  .grid-container {
+    @apply w-full h-full border border-black-300 bg-black-200 rounded-3xl p-5 flex flex-col gap-4;
+    height: 100%; /* Ensure the grid container fills its parent row */
+  }
+
+  .bentobox .grid {
+    row-gap: 1rem; /* Match vertical gaps to medium and large screens */
+    gap: 1rem; /* Ensure consistent spacing between rows and columns */
+    @apply grid-cols-12; /* Maintain 12 columns for extra-large screens */
+  }
+
+  .bentobox .grid > * {
+    height: 26vh; /* Each row takes up 26% of the viewport height */
+  }
+}
+
+/* Ultra Large Screens */
+@media (min-width: 1921px) {
+  #root {
+    padding-left: var(--margin-xlarge);
+    padding-right: var(--margin-xlarge);
+  }
+  .hero-container {
+    margin-top: 0px;
+  }
+
+  .grid-headtext {
+    font-size: 1.65rem !important; /* Larger title font size for ultra-large screens */
+  }
+
+  .grid-subtext {
+    font-size: 1.35rem !important; /* Larger subtext size for ultra-large screens */
+    line-height: 1.2 !important;
+  }
+
+  .grid-container {
+    @apply w-full h-full border border-black-300 bg-black-200 rounded-3xl p-5 flex flex-col gap-4;
+    height: calc(100% - 20px); /* Match large screen height */
+  }
+
+  .bentobox .grid {
+    row-gap: 1rem; /* Match vertical gaps to medium, large, and extra-large screens */
+    gap: 1rem; /* Ensure consistent spacing between rows and columns */
+    @apply grid-cols-12; /* Maintain 12 columns for ultra-large screens */
+  }
+
+  .bentobox .grid {
+    @apply grid-cols-12 gap-4; /* 12 columns with consistent spacing */
+  }
+  .bentobox .grid > *:nth-child(1) {
+    @apply col-span-7; /* Box 1 spans 7 columns */
+  }
+  .bentobox .grid > *:nth-child(2) {
+    @apply col-span-5; /* Box 2 spans 5 columns */
+  }
+  .bentobox .grid > *:nth-child(3) {
+    @apply col-span-5; /* Box 3 spans 5 columns */
+  }
+  .bentobox .grid > *:nth-child(4) {
+    @apply col-span-7; /* Box 4 spans 7 columns */
+  }
+  .bentobox .grid > *:nth-child(n+5) {
+    @apply col-span-3; /* Remaining boxes span 3 columns each */
+  }
+
+  /* Ensure no unintended padding or margins cause overlap */
+  .bentobox .grid > * {
+    height: 26vh; /* Set the height of each grid box to match the row height */
+    margin: 0; /* Remove any extra margins */
+    padding: 0; /* Remove any extra padding */
+  }
+
+  /* Ensure each row takes 26% of the viewport height */
+  .bentobox .grid > * {
+    height: 26vh; /* Set the height of each grid box to match the row height */
+    margin: 0; /* Remove any extra margins */
+    padding: 0; /* Remove any extra padding */
+    display: flex; /* Ensure the grid items behave as flex containers */
+    align-items: stretch; /* Stretch child elements to fill the row height */
+    box-sizing: border-box; /* Include padding and border in height calculation */
+  }
+
+  /* Reset any unintended styles on child elements */
+  .bentobox .grid-container {
+    height: 100%; /* Ensure the container fills its parent grid box */
+    display: flex; /* Use flexbox for layout */
+    flex-direction: column; /* Stack content vertically */
+    justify-content: stretch; /* Stretch content to fill the container */
+    align-items: stretch; /* Stretch child elements horizontally */
+    margin: 0; /* Remove any extra margins */
+    padding: 0; /* Remove any extra padding */
+    box-sizing: border-box; /* Include padding and border in height calculation */
+  }
+
+  .bentobox .grid-container > * {
+    flex-grow: 1; /* Ensure child elements grow to fill the container */
+    margin: 0; /* Remove any extra margins */
+    padding: 0; /* Remove any extra padding */
+    line-height: normal; /* Reset line-height to avoid extra space */
+  }
+
+  .bentobox .grid-container {
+    height: 100%; /* Ensure the container fills its parent grid box */
+    display: flex; /* Use flexbox for layout */
+    flex-direction: column; /* Stack content vertically */
+    justify-content: flex-end; /* Align content to the bottom */
+    align-items: center; /* Center content horizontally */
+    padding: 1rem; /* Match padding for extra-large screens */
+    box-sizing: border-box; /* Include padding and border in height calculation */
+  }
+
+  .bentobox .grid-container > * {
+    flex-grow: 0; /* Prevent child elements from growing */
+    margin: 0; /* Remove any extra margins */
+    padding: 0; /* Remove any extra padding */
+    line-height: normal; /* Reset line-height to avoid extra space */
+  }
+}
+
+.hero-container {
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-top: 0px;
+  position: relative;
+  z-index: 1;
+  padding-top: 150px;
+}
+
+.hero-titles p:first-child {
+  /* Title: "Austin Schultz" */
+  font-size: clamp(2.75rem, 8vw, 7rem);
+  color: transparent;
+  -webkit-text-stroke: 1.5px white;
+  text-stroke: 1.5px white;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: rgba(255, 255, 255, 0.03);
+  padding-left: 1rem; /* Default padding */
+}
+
+.hero-titles p:last-child {
+  /* Subtitle: "Artist & Product Designer" */
+  font-size: clamp(1rem, 2.55vw, 1.95rem);
+  color: white;
+  font-weight: 400;
+  letter-spacing: 0.08em;
+  white-space: nowrap;
+  padding-left: 1rem; /* Default padding */
+}
+
+@media (min-width: 1088px) {
+  .hero-titles p:first-child {
+    font-size: clamp(2.75rem, 8vw, 7rem);
+  }
+
+  .hero-titles p:last-child {
+    font-size: clamp(1rem, 2.7vw, 2.05rem);
+  }
+}
+
+.hero-titles p {
+  color: transparent;
+  text-stroke: 2px white;
+}
+
+.grid-subtext-container {
+  max-height: none !important; /* Remove height restriction */
+  overflow: visible !important; /* Ensure no scrolling */
+  transition: none !important; /* Disable transition */
+}
+
+.grid-container:hover .grid-subtext-container {
+  max-height: none; /* Remove hover effect */
+}
+
+/* Ensure grid gaps are consistent */
+.bentobox .grid {
+  gap: 1rem; /* Set consistent vertical and horizontal gaps */
+}
+
+.border {
+  border-color: var(--border-color);
+}
+
+.p-10 {
+  /* For About section boxes */
+  box-shadow: var(--box-shadow), var(--about-box-glow); /* Apply shadow and updated green glow dynamically */
+}
+
+/* About section icon color utility */
+.about-bubble-icon {
+  width: clamp(1.2rem, 0.95rem + 1.1vw, 2.2rem);
+  height: clamp(1.2rem, 0.95rem + 1.1vw, 2.2rem);
+  object-fit: contain;
+  filter: brightness(0) invert(1);
+}
+.light .about-bubble-icon {
+  filter: grayscale(1) brightness(0.7);
+}
+
