@@ -1,11 +1,57 @@
+import { useEffect, useState } from 'react';
+
 const Products = () => {
+  const [lightboxImage, setLightboxImage] = useState(null);
+
+  const handleSectionImageClick = (event) => {
+    const clickedElement = event.target instanceof Element ? event.target : null;
+    if (!clickedElement) return;
+
+    const card = clickedElement.closest('div[class*="overflow-hidden"][class*="relative"]');
+    if (!card) return;
+
+    const image = card.querySelector('img');
+    if (!image) return;
+
+    const src = image.getAttribute('src');
+    if (!src) return;
+
+    setLightboxImage({
+      src,
+      alt: image.getAttribute('alt') || 'Product image',
+    });
+  };
+
+  const closeLightbox = () => {
+    setLightboxImage(null);
+  };
+
+  useEffect(() => {
+    if (!lightboxImage) return;
+
+    const originalOverflow = document.body.style.overflow;
+    const handleKeyDown = (event) => {
+      if (event.key === 'Escape') {
+        closeLightbox();
+      }
+    };
+
+    document.body.style.overflow = 'hidden';
+    window.addEventListener('keydown', handleKeyDown);
+
+    return () => {
+      document.body.style.overflow = originalOverflow;
+      window.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [lightboxImage]);
+
   return (
-    <section id="products" className="w-full px-8 sm:px-10 md:px-12 lg:px-16 xl:px-20" style={{ color: 'var(--text-color)' }}>
+    <section id="products" className="w-full px-4 sm:px-10 md:px-12 lg:px-16 xl:px-20" style={{ color: 'var(--text-color)' }} onClick={handleSectionImageClick}>
       {/* Title with horizontal lines */}
-      <div className="flex items-center justify-center gap-16 lg:gap-24 xl:gap-28 mb-8 px-4 sm:px-8 lg:px-12">
-        <div className="h-[2px] w-16 sm:w-24 lg:w-40 xl:w-56" style={{ backgroundColor: 'var(--text-color)', opacity: 0.65 }}></div>
-        <h2 className="text-4xl lg:text-5xl xl:text-6xl font-semibold tracking-wider whitespace-nowrap" style={{ color: 'var(--text-color)' }}>Products</h2>
-        <div className="h-[2px] w-16 sm:w-24 lg:w-40 xl:w-56" style={{ backgroundColor: 'var(--text-color)', opacity: 0.65 }}></div>
+      <div className="section-title-row">
+        <div className="section-title-line"></div>
+        <h2 className="section-title-text">Products</h2>
+        <div className="section-title-line"></div>
       </div>
       {/* 2x2 grid for md and up, with split-image box in row 2 */}
       <div className="hidden md:grid md:grid-cols-2 gap-6 lg:gap-8 xl:gap-10 w-full">
@@ -66,7 +112,7 @@ const Products = () => {
       </div>
 
       {/* Single column layout for small screens */}
-      <div className="md:hidden space-y-6 w-full mt-8">
+      <div className="md:hidden space-y-6 w-full">
         <div className="soft-bottom-fade bg-[var(--box-background-color)] overflow-hidden rounded-[2rem] border border-black-300 flex flex-col justify-end items-center relative" style={{ height: '45vh', boxShadow: 'var(--box-shadow), var(--box-glow)' }}>
           <img
             src="/assets/4kgrillopen.webp"
@@ -117,6 +163,33 @@ const Products = () => {
           />
         </div>
       </div>
+
+      {lightboxImage && (
+        <div
+          className="fixed inset-0 z-[120] bg-black/85 flex items-center justify-center p-4"
+          onClick={closeLightbox}
+          role="dialog"
+          aria-modal="true"
+          aria-label="Expanded product image"
+        >
+          <button
+            type="button"
+            className="absolute top-4 right-4 text-white text-6xl leading-none"
+            onClick={closeLightbox}
+            aria-label="Close expanded image"
+          >
+            x
+          </button>
+          <img
+            src={lightboxImage.src}
+            alt={lightboxImage.alt}
+            className="max-w-[95vw] max-h-[90vh] object-contain rounded-xl"
+            onClick={(event) => event.stopPropagation()}
+            loading="eager"
+            decoding="async"
+          />
+        </div>
+      )}
     </section>
   );
 };

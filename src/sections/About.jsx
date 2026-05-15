@@ -45,11 +45,11 @@ const About = () => {
         </div>
       </div>
       <div className="lg:hidden grid grid-cols-1 w-full px-6 sm:px-8 md:px-8 gap-4 2xl:mt-20 mt-12 mx-auto"> {/* Full-width bubbles for small/medium screens only */}
-  <div className="p-10 pl-6 rounded-full text-center flex items-center justify-center h-20 lg:h-32 shadow-lg flex items-center justify-center overflow-hidden border border-black-300" style={{ backgroundColor: 'var(--box-background-color)', boxShadow: '0 -1px 3px 2px rgba(144, 238, 144, 0.1)', color: 'var(--text-color)', fontWeight: document.documentElement.classList.contains('light') ? 450 : 400 }}> {/* Fully rounded for half-circle look */}
-          <div className="mr-8 lg:mr-16"> {/* Exaggerated margin-right for icon on large screens */}
+  <div className="relative p-10 pl-6 rounded-full text-center flex items-center justify-center h-20 lg:h-32 shadow-lg overflow-hidden border border-black-300" style={{ backgroundColor: 'var(--box-background-color)', boxShadow: '0 -1px 3px 2px rgba(144, 238, 144, 0.1)', color: 'var(--text-color)', fontWeight: document.documentElement.classList.contains('light') ? 450 : 400 }}> {/* Fully rounded for half-circle look */}
+          <div className="absolute left-8 lg:left-10 flex items-center"> {/* Keep icon pinned left while text stays centered */}
             <img src="/assets/UOLogo.png" alt="UO Logo" className="about-bubble-icon" loading="lazy" decoding="async" />
           </div>
-          <div>
+          <div className="w-full text-center pl-6 sm:pl-8">
             <h3
               className="text-base lg:text-base xl:text-lg 2xl:text-xl font-bold"
               style={{
@@ -66,11 +66,11 @@ const About = () => {
             >Class of 2024</p>
           </div>
         </div>
-  <div className="p-10 pl-6 rounded-full text-center flex items-center justify-center h-20 lg:h-32 shadow-lg flex items-center justify-center overflow-hidden border border-black-300" style={{ backgroundColor: 'var(--box-background-color)', boxShadow: '0 -1px 3px 2px rgba(144, 238, 144, 0.1)', color: 'var(--text-color)', fontWeight: document.documentElement.classList.contains('light') ? 450 : 400 }}> {/* Border matches Jewelry section */}
-          <div className="mr-6 lg:mr-8"> {/* Exaggerated margin-right for icon on large screens */}
+  <div className="relative p-10 pl-6 rounded-full text-center flex items-center justify-center h-20 lg:h-32 shadow-lg overflow-hidden border border-black-300" style={{ backgroundColor: 'var(--box-background-color)', boxShadow: '0 -1px 3px 2px rgba(144, 238, 144, 0.1)', color: 'var(--text-color)', fontWeight: document.documentElement.classList.contains('light') ? 450 : 400 }}> {/* Border matches Jewelry section */}
+          <div className="absolute left-8 lg:left-10 flex items-center"> {/* Keep icon pinned left while text stays centered */}
             <img src="/assets/Grad.png" alt="Graduation Cap" className="about-bubble-icon" loading="lazy" decoding="async" />
           </div>
-          <div>
+          <div className="w-full text-center pl-6 sm:pl-8">
             <h3
               className="text-base lg:text-base xl:text-lg 2xl:text-xl font-bold"
               style={{

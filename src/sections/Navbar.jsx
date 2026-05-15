@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { NavLink } from 'react-router-dom';
 import { navLinks } from '../constants/index.js';
 import { useTheme } from '../context/ThemeContext.jsx';
@@ -23,6 +23,8 @@ const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const { theme, toggleTheme } = useTheme();
+  const menuPanelRef = useRef(null);
+  const menuToggleRef = useRef(null);
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 50);
@@ -30,6 +32,32 @@ const Navbar = () => {
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
+
+  useEffect(() => {
+    if (!isOpen) return;
+
+    const handlePointerDown = (event) => {
+      const target = event.target;
+      if (menuPanelRef.current?.contains(target) || menuToggleRef.current?.contains(target)) {
+        return;
+      }
+      setIsOpen(false);
+    };
+
+    const handleEscape = (event) => {
+      if (event.key === 'Escape') {
+        setIsOpen(false);
+      }
+    };
+
+    document.addEventListener('pointerdown', handlePointerDown);
+    document.addEventListener('keydown', handleEscape);
+
+    return () => {
+      document.removeEventListener('pointerdown', handlePointerDown);
+      document.removeEventListener('keydown', handleEscape);
+    };
+  }, [isOpen]);
 
   const toggleMenu = () => setIsOpen((prev) => !prev);
   const closeMenu = () => setIsOpen(false);
@@ -41,7 +69,16 @@ const Navbar = () => {
       }`}
     >
       <div className="mx-auto flex items-center justify-center lg:justify-between gap-0 lg:gap-3 px-4 sm:px-6 md:px-8 lg:px-24 xl:px-40">
-        <div className="nav-left whitespace-nowrap">
+        <div className="nav-left whitespace-nowrap flex items-center gap-2 sm:gap-3">
+          <button
+            onClick={toggleMenu}
+            ref={menuToggleRef}
+            className="text-neutral-300 hover:text-white focus:outline-none lg:hidden flex items-center justify-center w-12 h-12 rounded-full"
+            aria-label="Toggle menu"
+            aria-expanded={isOpen}
+          >
+            <img src={isOpen ? 'assets/close.svg' : 'assets/menu.svg'} alt="Menu toggle" className="w-8 h-8" />
+          </button>
           <NavLink
             to="/"
             className={({ isActive }) => (isActive ? 'nav-title active' : 'nav-title')}
@@ -51,15 +88,6 @@ const Navbar = () => {
           </NavLink>
         </div>
         <div className="nav-right flex items-center gap-3 sm:gap-4">
-          <button
-            onClick={toggleMenu}
-            className="text-neutral-400 hover:text-white focus:outline-none lg:hidden flex"
-            aria-label="Toggle menu"
-            aria-expanded={isOpen}
-          >
-            <img src={isOpen ? 'assets/close.svg' : 'assets/menu.svg'} alt="Menu toggle" className="w-6 h-6" />
-          </button>
-
           <button
             onClick={toggleTheme}
             className="lg:hidden rounded-full text-white transition border border-gray-400 hover:border-gray-200 shrink-0"
@@ -98,8 +126,8 @@ const Navbar = () => {
         {theme === 'dark' ? 'Light Mode' : 'Dark Mode'}
       </button>
 
-      <div className={`nav-sidebar ${isOpen ? 'max-h-screen' : 'max-h-0'}`}>
-        <nav className="p-5">
+      <div className={`nav-sidebar ${isOpen ? 'open' : ''}`}>
+        <nav ref={menuPanelRef} className="p-5">
           <NavItems onClick={closeMenu} />
         </nav>
       </div>

@@ -1,4 +1,50 @@
+import { useEffect, useState } from 'react';
+
 const Gallery = () => {
+  const [lightboxImage, setLightboxImage] = useState(null);
+
+  const handleSectionImageClick = (event) => {
+    const clickedElement = event.target instanceof Element ? event.target : null;
+    if (!clickedElement) return;
+
+    const card = clickedElement.closest('div[class*="overflow-hidden"][class*="relative"]');
+    if (!card) return;
+
+    const image = card.querySelector('img');
+    if (!image) return;
+
+    const src = image.getAttribute('src');
+    if (!src) return;
+
+    setLightboxImage({
+      src,
+      alt: image.getAttribute('alt') || 'Gallery image',
+    });
+  };
+
+  const closeLightbox = () => {
+    setLightboxImage(null);
+  };
+
+  useEffect(() => {
+    if (!lightboxImage) return;
+
+    const originalOverflow = document.body.style.overflow;
+    const handleKeyDown = (event) => {
+      if (event.key === 'Escape') {
+        closeLightbox();
+      }
+    };
+
+    document.body.style.overflow = 'hidden';
+    window.addEventListener('keydown', handleKeyDown);
+
+    return () => {
+      document.body.style.overflow = originalOverflow;
+      window.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [lightboxImage]);
+
   const images = Array.from({ length: 21 }, (_, index) => ({
     id: index + 1,
     src:
@@ -29,7 +75,7 @@ const Gallery = () => {
 
   return (
     <main className="pt-24 pb-8">
-      <section className="w-full pt-8 px-8 sm:px-10 md:px-12 lg:px-16 xl:px-20">
+      <section id="gallery" className="w-full pt-8 px-8 sm:px-10 md:px-12 lg:px-16 xl:px-20" onClick={handleSectionImageClick}>
         <div className="grid grid-cols-3 gap-3 md:gap-4 lg:gap-5">
           {images.map((image) => (
             <div
@@ -51,6 +97,33 @@ const Gallery = () => {
           ))}
         </div>
       </section>
+
+      {lightboxImage && (
+        <div
+          className="fixed inset-0 z-[120] bg-black/85 flex items-center justify-center p-4"
+          onClick={closeLightbox}
+          role="dialog"
+          aria-modal="true"
+          aria-label="Expanded gallery image"
+        >
+          <button
+            type="button"
+            className="absolute top-4 right-4 text-white text-6xl leading-none"
+            onClick={closeLightbox}
+            aria-label="Close expanded image"
+          >
+            x
+          </button>
+          <img
+            src={lightboxImage.src}
+            alt={lightboxImage.alt}
+            className="max-w-[95vw] max-h-[90vh] object-contain rounded-xl"
+            onClick={(event) => event.stopPropagation()}
+            loading="eager"
+            decoding="async"
+          />
+        </div>
+      )}
     </main>
   );
 };

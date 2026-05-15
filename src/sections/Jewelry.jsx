@@ -1,4 +1,50 @@
+import { useEffect, useState } from 'react';
+
 const Jewelry = () => {
+  const [lightboxImage, setLightboxImage] = useState(null);
+
+  const handleSectionImageClick = (event) => {
+    const clickedElement = event.target instanceof Element ? event.target : null;
+    if (!clickedElement) return;
+
+    const card = clickedElement.closest('div[class*="overflow-hidden"][class*="relative"]');
+    if (!card) return;
+
+    const image = card.querySelector('img');
+    if (!image) return;
+
+    const src = image.getAttribute('src');
+    if (!src) return;
+
+    setLightboxImage({
+      src,
+      alt: image.getAttribute('alt') || 'Jewelry image',
+    });
+  };
+
+  const closeLightbox = () => {
+    setLightboxImage(null);
+  };
+
+  useEffect(() => {
+    if (!lightboxImage) return;
+
+    const originalOverflow = document.body.style.overflow;
+    const handleKeyDown = (event) => {
+      if (event.key === 'Escape') {
+        closeLightbox();
+      }
+    };
+
+    document.body.style.overflow = 'hidden';
+    window.addEventListener('keydown', handleKeyDown);
+
+    return () => {
+      document.body.style.overflow = originalOverflow;
+      window.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [lightboxImage]);
+
   const images = [
     { id: 1, src: '/assets/Utensils.jpg', alt: 'Utensils', objectPosition: 'center 45%', title: 'Creative Work' },
     { id: 2, src: '/assets/MixedMetalRing.jpg', alt: 'Mixed metal ring', objectPosition: 'center 54%', title: 'Traditional Jewelry' },
@@ -7,12 +53,12 @@ const Jewelry = () => {
   ];
 
   return (
-    <section id="jewelry" className="w-full px-8 sm:px-10 md:px-12 lg:px-16 xl:px-20 mt-16">
+    <section id="jewelry" className="w-full px-4 sm:px-10 md:px-12 lg:px-16 xl:px-20 mt-16" onClick={handleSectionImageClick}>
       {/* Title with horizontal lines */}
-      <div className="flex items-center justify-center gap-16 lg:gap-24 xl:gap-28 mb-12 px-4 sm:px-8 lg:px-12">
-        <div className="flex-1 h-[2px] max-w-[220px]" style={{ backgroundColor: 'var(--text-color)', opacity: 0.65 }}></div>
-        <h2 className="text-4xl lg:text-5xl xl:text-6xl font-semibold tracking-wider whitespace-nowrap" style={{ color: 'var(--text-color)' }}>Jewelry</h2>
-        <div className="flex-1 h-[2px] max-w-[220px]" style={{ backgroundColor: 'var(--text-color)', opacity: 0.65 }}></div>
+      <div className="section-title-row jewelry-home-title-row">
+        <div className="section-title-line"></div>
+        <h2 className="section-title-text">Jewelry</h2>
+        <div className="section-title-line"></div>
       </div>
       <div className="w-full jewelry-grid">
         {images.map((image) => (
@@ -33,6 +79,33 @@ const Jewelry = () => {
           </div>
         ))}
       </div>
+
+      {lightboxImage && (
+        <div
+          className="fixed inset-0 z-[120] bg-black/85 flex items-center justify-center p-4"
+          onClick={closeLightbox}
+          role="dialog"
+          aria-modal="true"
+          aria-label="Expanded jewelry image"
+        >
+          <button
+            type="button"
+            className="absolute top-4 right-4 text-white text-6xl leading-none"
+            onClick={closeLightbox}
+            aria-label="Close expanded image"
+          >
+            x
+          </button>
+          <img
+            src={lightboxImage.src}
+            alt={lightboxImage.alt}
+            className="max-w-[95vw] max-h-[90vh] object-contain rounded-xl"
+            onClick={(event) => event.stopPropagation()}
+            loading="eager"
+            decoding="async"
+          />
+        </div>
+      )}
     </section>
   );
 };

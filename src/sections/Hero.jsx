@@ -52,11 +52,11 @@ const Hero = () => {
       </div>
 
       <div
-        className="absolute bottom-24 right-0 w-full z-10 c-space flex flex-col items-center px-4 hero-titles"
+        className="absolute bottom-24 inset-x-0 w-full z-10 flex flex-col items-center text-center px-4 sm:px-6 hero-titles"
         style={{ color: 'var(--text-color)', transition: 'color 2s ease', transform: 'translateY(-12px)' }} // Apply smooth text color transition
       >
         <p
-          className="font-bold text-center font-generalsans leading-none tracking-wider"
+          className="font-bold text-center font-generalsans leading-none tracking-wider w-full"
           style={{
             WebkitTextFillColor: 'rgba(255,255,255,0.03)',
             WebkitTextStroke: isSmall ? '1px white' : '1.5px white',
@@ -67,7 +67,7 @@ const Hero = () => {
           Austin <br /> Schultz
         </p>
         <p
-          className="font-medium text-center mt-2"
+          className="font-medium text-center mt-2 w-full"
           style={{
             fontWeight: 300,
             color: '#ffffff',

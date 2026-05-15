@@ -24,10 +24,31 @@ const BentoBox = () => {
     textShadow: '0 1px 1px rgba(0, 0, 0, 0.95), 0 6px 14px rgba(0, 0, 0, 0.5)',
   };
 
-  const handleCopy = () => {
-    navigator.clipboard.writeText('acschultz24@gmail.com');
-    setHasCopied(true);
-    setTimeout(() => setHasCopied(false), 2000);
+  const handleCopy = async () => {
+    const email = 'acschultz24@gmail.com';
+
+    try {
+      if (navigator.clipboard?.writeText) {
+        await navigator.clipboard.writeText(email);
+      } else {
+        // Fallback for environments where Clipboard API is unavailable.
+        const textArea = document.createElement('textarea');
+        textArea.value = email;
+        textArea.setAttribute('readonly', '');
+        textArea.style.position = 'absolute';
+        textArea.style.left = '-9999px';
+        document.body.appendChild(textArea);
+        textArea.select();
+        document.execCommand('copy');
+        document.body.removeChild(textArea);
+      }
+
+      setHasCopied(true);
+      setTimeout(() => setHasCopied(false), 2000);
+    } catch (error) {
+      console.error('Failed to copy email:', error);
+      setHasCopied(false);
+    }
   };
 
   const handleContactClick = () => {
@@ -101,14 +122,14 @@ const BentoBox = () => {
 
   return (
     <section
-      className="bentobox space-y-8 px-6 sm:px-8 md:px-8 lg:px-8 xl:px-14" // Explicitly added padding classes
+      className="bentobox space-y-8 px-4 sm:px-8 md:px-8 lg:px-8 xl:px-14" // Explicitly added padding classes
       id="bentobox"
     >
       <div id="bentobox-top" style={{ position: 'relative', top: '-85px' }}></div>
-      <div className="flex items-center justify-center gap-16 lg:gap-24 xl:gap-28 mb-8 px-4 sm:px-8 lg:px-12">
-        <div className="h-[2px] w-16 sm:w-24 lg:w-40 xl:w-56" style={{ backgroundColor: 'var(--text-color)', opacity: 0.65 }}></div>
-        <h2 className="text-4xl lg:text-5xl xl:text-6xl font-semibold tracking-wider whitespace-nowrap" style={{ color: 'var(--text-color)' }}>About</h2>
-        <div className="h-[2px] w-16 sm:w-24 lg:w-40 xl:w-56" style={{ backgroundColor: 'var(--text-color)', opacity: 0.65 }}></div>
+      <div className="section-title-row">
+        <div className="section-title-line"></div>
+        <h2 className="section-title-text">About</h2>
+        <div className="section-title-line"></div>
       </div>
       <div className="grid grid-cols-6 lg:grid-cols-12 gap-4 rounded-3xl p-4"> {/* Default to large and ultra-large screen settings */} 
         {gridItems.map((item, index) => (
@@ -170,15 +191,15 @@ const BentoBox = () => {
               }}
             />
             <div className="absolute inset-x-0 bottom-0 h-[55%] pointer-events-none z-[1]" style={textScrimStyle}></div>
-            <div className="relative text-center w-full z-10">
-              <div className="copy-container flex flex-col sm:flex-row items-center justify-center w-full" onClick={handleCopy}>
+            <div className="relative text-center w-full z-10 px-1">
+              <div className="copy-container copy-row flex flex-col lg:flex-row items-center justify-center w-full" onClick={handleCopy}>
                 <img
-                  src={hasCopied ? 'assets/tick.svg' : 'assets/copy.svg'}
+                  src={hasCopied ? '/assets/tick.svg' : '/assets/copy.svg'}
                   alt="copy"
-                  className="copy-icon w-8 h-8 mb-2 sm:mb-0 sm:mr-2"
+                  className="copy-icon mb-2 lg:mb-0 lg:mr-2"
                   style={!hasCopied ? { filter: 'brightness(0) invert(1)' } : {}}
                 />
-                <p className="grid-headtext xl:text-[1.4rem] 2xl:text-[1.5rem] whitespace-nowrap overflow-hidden text-ellipsis w-full text-center" style={titleTextStyle}>
+                <p className="contact-email-text w-full text-center" style={titleTextStyle}>
                   acschultz24@gmail.com
                 </p>
               </div>
