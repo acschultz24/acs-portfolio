@@ -9,9 +9,13 @@ import CanvasLoader from '../components/Loading.jsx';
 
 const Hero = () => {
   const isSmall = useMediaQuery({ maxWidth: 640 });
+  const isNarrowPhone = useMediaQuery({ maxWidth: 430 });
+  const isVeryNarrowPhone = useMediaQuery({ maxWidth: 375 });
+
+  const mobileObjectX = isVeryNarrowPhone ? '89%' : isNarrowPhone ? '86%' : '83%';
   const heroImageStyle = {
     filter: 'brightness(1)',
-    objectPosition: '81% 40%',
+    objectPosition: `${isSmall ? mobileObjectX : '81%'} 40%`,
   };
 
   return (
