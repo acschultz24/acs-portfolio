@@ -82,7 +82,7 @@ const Navbar = () => {
           <NavLink
             to="/"
             className={({ isActive }) => (isActive ? 'nav-title active' : 'nav-title')}
-            style={{ fontSize: '1.7rem' }}
+            style={{ fontSize: 'clamp(1.3rem, 4.8vw, 1.7rem)' }}
           >
             Austin Schultz
           </NavLink>
@@ -93,8 +93,10 @@ const Navbar = () => {
             className="lg:hidden rounded-full text-white transition border border-gray-400 hover:border-gray-200 shrink-0"
             style={{
               backgroundColor: 'var(--button-background-color)',
-              padding: '0.5rem 0.8rem',
-              fontSize: '0.85rem',
+              padding: '0.35rem 0.62rem',
+              fontSize: 'clamp(0.68rem, 1.7vw, 0.78rem)',
+              lineHeight: 1.1,
+              whiteSpace: 'nowrap',
               borderWidth: '1px',
               borderColor: 'rgba(169, 169, 169, 0.7)',
             }}
