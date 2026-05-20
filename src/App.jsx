@@ -1,5 +1,6 @@
 import { lazy, Suspense } from 'react';
 import { Routes, Route } from 'react-router-dom';
+import { Analytics } from '@vercel/analytics/react';
 import Navbar from './sections/Navbar.jsx';
 import Footer from './sections/Footer.jsx';
 import Hero from './sections/Hero.jsx';
@@ -42,6 +43,7 @@ const App = () => {
           </Suspense>
         </main>
         <Footer />
+        <Analytics />
       </div>
     </ThemeProvider>
   );
