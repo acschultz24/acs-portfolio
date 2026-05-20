@@ -43,7 +43,7 @@ const App = () => {
           </Suspense>
         </main>
         <Footer />
-        <Analytics />
+        <Analytics mode="production" debug={false} />
       </div>
     </ThemeProvider>
   );
