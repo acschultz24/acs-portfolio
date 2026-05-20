@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import ProgressiveImage from '../components/ProgressiveImage.jsx';
 
 const ProductDesign = () => {
   const [lightboxImage, setLightboxImage] = useState(null);
@@ -134,12 +135,13 @@ const ProductDesign = () => {
           </div>
 
           <div className="bg-[var(--box-background-color)] overflow-hidden rounded-[2rem] border border-black-300 flex flex-col justify-end items-center relative" style={{ height: '45vh', boxShadow: 'var(--box-shadow), var(--box-glow)' }}>
-            <img
+            <ProgressiveImage
               src="/assets/4kflipdotonly.webp"
               alt="4k flipdot only"
               className="w-full h-full object-cover absolute top-0 left-0 z-0"
               loading="lazy"
               decoding="async"
+              objectPosition="center"
               style={{ borderRadius: '2rem', transform: 'scale(2.05)', filter: 'brightness(0.9)' }}
             />
             <div className="relative z-10 w-full flex justify-center items-end h-full">
@@ -248,12 +250,13 @@ const ProductDesign = () => {
           </div>
 
           <div className="bg-[var(--box-background-color)] overflow-hidden rounded-[2rem] border border-black-300 flex flex-col justify-end items-center relative" style={{ height: '45vh', boxShadow: 'var(--box-shadow), var(--box-glow)' }}>
-            <img
+            <ProgressiveImage
               src="/assets/4kflipdotonly.webp"
               alt="4k flipdot only"
               className="w-full h-full object-cover absolute top-0 left-0 z-0"
               loading="lazy"
               decoding="async"
+              objectPosition="center"
               style={{ borderRadius: '2rem', transform: 'scale(2.55)', filter: 'brightness(0.9)' }}
             />
             <div className="relative z-10 w-full flex justify-center items-end h-full">
@@ -262,13 +265,14 @@ const ProductDesign = () => {
           </div>
 
           <div className="bg-[var(--box-background-color)] overflow-hidden rounded-[2rem] border border-black-300 flex flex-col justify-end items-center relative" style={{ height: '45vh', boxShadow: 'var(--box-shadow), var(--box-glow)' }}>
-            <img
+            <ProgressiveImage
               src="/assets/ToolStorage.webp"
               alt="Tool Storage"
               className="w-full h-full object-cover absolute top-0 left-0 z-0"
               loading="lazy"
               decoding="async"
-              style={{ borderRadius: '2rem', transform: 'scale(1.1)', objectPosition: 'center 58%' }}
+              objectPosition="center 58%"
+              style={{ borderRadius: '2rem', transform: 'scale(1.1)' }}
             />
             <div className="relative z-10 w-full flex justify-center items-end h-full">
               <span className="w-full text-center font-semibold text-4xl pb-4" style={{ color: '#fff', textShadow: '0 1px 8px rgba(0,0,0,0.7)' }}>Parametric Modeling</span>

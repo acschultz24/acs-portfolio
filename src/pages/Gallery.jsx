@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import ProgressiveImage from '../components/ProgressiveImage.jsx';
 
 const Gallery = () => {
   const [lightboxImage, setLightboxImage] = useState(null);
@@ -84,13 +85,15 @@ const Gallery = () => {
               style={{ backgroundColor: 'var(--box-background-color)', boxShadow: 'var(--box-shadow), var(--box-glow)' }}
             >
               {image.src && (
-                <img
+                <ProgressiveImage
                   src={image.src}
                   alt={image.alt}
                   className="absolute inset-0 w-full h-full object-cover"
                   loading={image.id <= 3 ? 'eager' : 'lazy'}
                   decoding="async"
-                  style={{ transform: image.id === 10 ? 'scale(1.08)' : image.id === 21 ? 'scale(1.12) translateY(-6%)' : 'none', transformOrigin: image.id === 21 ? 'left top' : 'center center', objectPosition: image.id === 7 ? 'center 30%' : image.id === 13 ? 'center 40%' : image.id === 14 ? 'center 80%' : image.id === 15 ? 'center 50%' : image.id >= 13 && image.id <= 15 ? 'center top' : image.id === 21 ? '0% 0%' : image.id >= 19 && image.id <= 21 ? 'center top' : 'center', filter: image.id === 8 ? 'brightness(0.75) saturate(0.6)' : 'none' }}
+                  objectPosition={image.id === 7 ? 'center 30%' : image.id === 13 ? 'center 40%' : image.id === 14 ? 'center 80%' : image.id === 15 ? 'center 50%' : image.id >= 13 && image.id <= 15 ? 'center top' : image.id === 21 ? '0% 0%' : image.id >= 19 && image.id <= 21 ? 'center top' : 'center'}
+                  filter={image.id === 8 ? 'brightness(0.75) saturate(0.6)' : 'none'}
+                  style={{ transform: image.id === 10 ? 'scale(1.08)' : image.id === 21 ? 'scale(1.12) translateY(-6%)' : 'none', transformOrigin: image.id === 21 ? 'left top' : 'center center' }}
                 />
               )}
             </div>

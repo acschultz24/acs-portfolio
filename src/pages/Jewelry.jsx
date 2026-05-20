@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import ProgressiveImage from '../components/ProgressiveImage.jsx';
 
 const Jewelry = () => {
   const [lightboxImage, setLightboxImage] = useState(null);
@@ -8,12 +9,13 @@ const Jewelry = () => {
     if (!clickedElement) return;
 
     const card = clickedElement.closest('div[class*="overflow-hidden"][class*="relative"]');
-    if (!card) return;
-
-    const image = card.querySelector('img');
-    if (!image) return;
-
-    const src = image.getAttribute('src');
+                  <ProgressiveImage
+                    src={image.src}
+                    alt={image.alt}
+                    className="w-full h-full object-cover absolute top-0 left-0 z-0"
+                    objectPosition={image.objectPosition}
+                    filter={image.id === 10 ? 'contrast(1.18)' : 'none'}
+                  />
     if (!src) return;
 
     setLightboxImage({
@@ -94,11 +96,12 @@ const Jewelry = () => {
                   className="relative overflow-hidden rounded-3xl border border-black-300 shadow-lg w-full flex flex-col justify-end items-center"
                   style={{ backgroundColor: 'var(--box-background-color)', height: '62vh' }}
                 >
-                  <img
+                  <ProgressiveImage
                     src={image.src}
                     alt={image.alt}
                     className="w-full h-full object-cover absolute top-0 left-0 z-0"
-                    style={{ objectPosition: image.objectPosition, transform: row2Index === 2 ? 'scaleX(-1)' : 'none' }}
+                    objectPosition={image.objectPosition}
+                    style={{ transform: row2Index === 2 ? 'scaleX(-1)' : 'none' }}
                   />
                 </div>
               ))}
@@ -111,11 +114,12 @@ const Jewelry = () => {
                   className="relative overflow-hidden rounded-3xl border border-black-300 shadow-lg w-full flex flex-col justify-end items-center"
                   style={{ backgroundColor: 'var(--box-background-color)', height: '50vh' }}
                 >
-                  <img
+                  <ProgressiveImage
                     src={image.src}
                     alt={image.alt}
                     className="w-full h-full object-cover absolute top-0 left-0 z-0"
-                    style={{ objectPosition: image.objectPosition, objectFit: 'cover', transform: image.id === 7 ? 'scale(1.38)' : 'none' }}
+                    objectPosition={image.objectPosition}
+                    style={{ objectFit: 'cover', transform: image.id === 7 ? 'scale(1.38)' : 'none' }}
                   />
                 </div>
               ))}
@@ -128,11 +132,11 @@ const Jewelry = () => {
                   className="relative overflow-hidden rounded-3xl border border-black-300 shadow-lg w-full flex flex-col justify-end items-center"
                   style={{ backgroundColor: 'var(--box-background-color)', height: '50vh' }}
                 >
-                  <img
+                  <ProgressiveImage
                     src={image.src}
                     alt={image.alt}
                     className="w-full h-full object-cover absolute top-0 left-0 z-0"
-                    style={{ objectPosition: image.objectPosition }}
+                    objectPosition={image.objectPosition}
                   />
                 </div>
               ))}
@@ -145,11 +149,11 @@ const Jewelry = () => {
                   className="relative overflow-hidden rounded-3xl border border-black-300 shadow-lg w-full flex flex-col justify-end items-center"
                   style={{ backgroundColor: 'var(--box-background-color)', height: '46vh' }}
                 >
-                  <img
+                  <ProgressiveImage
                     src={image.src}
                     alt={image.alt}
                     className="w-full h-full object-cover absolute top-0 left-0 z-0"
-                    style={{ objectPosition: image.objectPosition }}
+                    objectPosition={image.objectPosition}
                   />
                 </div>
               ))}
@@ -162,11 +166,12 @@ const Jewelry = () => {
                   className="relative overflow-hidden rounded-3xl border border-black-300 shadow-lg w-full flex flex-col justify-end items-center"
                   style={{ backgroundColor: 'var(--box-background-color)', height: '34vh' }}
                 >
-                  <img
+                  <ProgressiveImage
                     src={image.src}
                     alt={image.alt}
                     className="w-full h-full object-cover absolute top-0 left-0 z-0"
-                    style={{ objectPosition: image.objectPosition, transform: 'none' }}
+                    objectPosition={image.objectPosition}
+                    style={{ transform: 'none' }}
                   />
                 </div>
               ))}
@@ -181,13 +186,13 @@ const Jewelry = () => {
                 className={`relative overflow-hidden rounded-3xl border border-black-300 shadow-lg w-full flex flex-col justify-end items-center h-[36vh] ${image.id <= 2 || image.id >= 13 ? 'md:h-[32vh] lg:h-[32vh]' : 'md:h-[40vh] lg:h-[40vh]'}`}
                 style={{ backgroundColor: 'var(--box-background-color)' }}
               >
-                <img
+                <ProgressiveImage
                   src={image.src}
                   alt={image.alt}
                   className="w-full h-full object-cover absolute top-0 left-0 z-0"
+                  objectPosition={image.objectPosition}
+                  filter={image.id === 10 ? 'contrast(1.18)' : 'none'}
                   style={{
-                    objectPosition: image.objectPosition,
-                    filter: image.id === 10 ? 'contrast(1.18)' : 'none',
                     transform: image.id === 5 ? 'scaleX(-1)' : image.id === 7 ? 'scale(1.38)' : 'none',
                   }}
                 />
